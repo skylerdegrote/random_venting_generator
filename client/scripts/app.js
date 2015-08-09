@@ -11,12 +11,14 @@ var modadjectivesArray = [];
 var topicsArray = [];
 var min = 1;
 var max = 26;
-
+var adj;
+var adv;
+var topic;
 
 //////MAKE FUNCTIONS HERE
-function appendWords(text){
-    $(".everything").append("<p>"+ text +"</p>");
-}
+//function appendWords(text){
+//    $(".everything").append("<p>"+ text +"</p>");
+//}
 //random number function to be used three times
 function randomNum(min, max) {
         return Math.floor(Math.random() * (1 + max - min) + min);
@@ -57,12 +59,35 @@ $(document).ready(function(){
         }
     });
     $(".generateBtn").on("click", function(){
-        var adj = adjectivesArray[randomNum(0, adjectivesArray.length-1)];//the randomNum is being used as the index of the array
-        var adv = modadjectivesArray[randomNum(0, modadjectivesArray.length-1)];
-        var topic = topicsArray[randomNum(0, topicsArray.length-1)];
-        //console.log(adv +" "+ adj +" "+topic);
+        adj = adjectivesArray[randomNum(0, adjectivesArray.length-1)];//the randomNum is being used as the index of the array
+        adv = modadjectivesArray[randomNum(0, modadjectivesArray.length-1)];
+        topic = topicsArray[randomNum(0, topicsArray.length-1)];
         $(".everything").empty(); //empties out the div without removing the div from the DOM
-        var stringWords = adv +" "+adj+" "+topic+"!";
-        appendWords(stringWords);
+
+        $(".everything").append("<span class='adverb-span'> " + adv + " </span>");
+        $(".everything").append("<span class='adjective-span'> " + adj + " </span>");
+        $(".everything").append("<span class='topic-span'> " + topic + " </span>");
+
+        //var stringWords = adv +" "+adj+" "+topic+"!";
+        //appendWords(stringWords);
+    });
+
+    $("body").on("click", ".adverb-span", function(){
+        $(".adverb-span").hide();
+        $(".adverb-span").empty();
+        adv = modadjectivesArray[randomNum(0, modadjectivesArray.length-1)];
+        $(".adverb-span").append(adv).fadeIn();
+    });
+    $("body").on("click", ".adjective-span", function(){
+        $(".adjective-span").hide();
+        $(".adjective-span").empty();
+        adj = adjectivesArray[randomNum(0, adjectivesArray.length-1)];
+        $(".adjective-span").append(" "+adj).fadeIn();
+    });
+    $("body").on("click", ".topic-span", function(){
+        $(".topic-span").hide();
+        $(".topic-span").empty();
+        topic = topicsArray[randomNum(0, topicsArray.length-1)];
+        $(".topic-span").append(" "+topic).fadeIn();
     });
 });
